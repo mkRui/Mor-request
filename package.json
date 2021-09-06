@@ -1,0 +1,42 @@
+{
+  "name": "mor-request",
+  "version": "1.0.0",
+  "description": "基于Axios请求库",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "commit": "git-cz && yarn run release:patch && git push && yarn run publish:npm",
+    "release:major": "standard-version -r major -n",
+    "release:minor": "standard-version -r minor -n",
+    "release:patch": "standard-version -r patch -n",
+    "build:ts": "rm -rf ./dist && tsc -p tsconfig.build.json",
+    "commit-log": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "publish:npm": "npm publish --registry https://registry.npmjs.org/"
+  },
+  "standard-version": {
+    "skip": {
+      "tag": true
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkRui/Mor-request.git"
+  },
+  "author": "师聪瑞",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mkRui/Mor-request/issues"
+  },
+  "homepage": "https://github.com/mkRui/Mor-request#readme",
+  "dependencies": {
+    "axios": "^0.21.3"
+  }
+}
