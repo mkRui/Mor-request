@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.2 (2021-09-12)
+
+
+### Features
+
+* 初始化 ([d4038aa](https://github.com/mkRui/Mor-request/commit/d4038aa1eee4f6c54790b49b964c24491a3f8d81))
+* 添加方法 ([52b86d6](https://github.com/mkRui/Mor-request/commit/52b86d6a435448856218bab9d43b694e78a03817))
+
 ### 1.0.1 (2021-09-06)
 
 
