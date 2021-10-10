@@ -1,6 +1,6 @@
 {
   "name": "mor-request",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "基于Axios请求库",
   "main": "dist/index.js",
   "files": [
