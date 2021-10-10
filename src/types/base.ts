@@ -1,9 +1,9 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-06 21:42:28
- * @LastEditTime: 2021-10-10 15:11:34
+ * @LastEditTime: 2021-10-10 15:57:55
  */
-export { AxiosStatic } from 'axios'
+export { AxiosInstance } from 'axios'
 export declare namespace BaseRequest {
     /**
      * 0 成功
