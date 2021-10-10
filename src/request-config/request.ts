@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 18:24:58
- * @LastEditTime: 2021-10-10 14:10:44
+ * @LastEditTime: 2021-10-10 15:40:57
  */
 import { AxiosRequestConfig, AxiosInstance } from 'axios'
 import { BaseRequest } from '../types/base'

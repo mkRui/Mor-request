@@ -1,3 +1,4 @@
-import CreateAxios from './request/axios';
-import Request from './request/base';
-export { Request, CreateAxios };
+import CreateAxios from './request-config/axios';
+import Request from './request-config/request';
+import Store from './request-config/store';
+export { Request, Store, CreateAxios };

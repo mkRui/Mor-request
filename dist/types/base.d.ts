@@ -1,3 +1,4 @@
+export { AxiosStatic } from 'axios';
 export declare namespace BaseRequest {
     /**
      * 0 成功
