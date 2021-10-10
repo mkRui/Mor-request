@@ -1,7 +1,12 @@
+/*
+ * @Author: mkRui
+ * @Date: 2021-09-07 11:26:55
+ * @LastEditTime: 2021-10-10 14:22:19
+ */
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 
 
-export const CreateAxios = (config?: AxiosRequestConfig): AxiosInstance => {
+const CreateAxios = (config?: AxiosRequestConfig): AxiosInstance => {
 
     const Axios = axios.create({
         timeout: 5000,
@@ -20,9 +25,11 @@ export const CreateAxios = (config?: AxiosRequestConfig): AxiosInstance => {
     Axios.interceptors.response.use((response: AxiosResponse) => {
         return response;
     }, (err: AxiosError) => {
-        return Promise.reject(err.response.status);
+        Promise.reject(err.response.status);
     });
 
 
     return Axios
 }
+
+export default CreateAxios

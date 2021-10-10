@@ -1,7 +1,12 @@
+/*
+ * @Author: mkRui
+ * @Date: 2021-09-07 18:24:58
+ * @LastEditTime: 2021-10-10 14:10:44
+ */
 import { AxiosRequestConfig, AxiosInstance } from 'axios'
 import { BaseRequest } from '../types/base'
 
-class Request {
+export default class Request {
     public axios: AxiosInstance
 
     constructor (axios: AxiosInstance) {

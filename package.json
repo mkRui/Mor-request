@@ -2,9 +2,9 @@
   "name": "mor-request",
   "version": "1.0.2",
   "description": "基于Axios请求库",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "files": [
-    "lib"
+    "dist"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
