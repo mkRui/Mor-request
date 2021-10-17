@@ -37,6 +37,7 @@
   },
   "homepage": "https://github.com/mkRui/Mor-request#readme",
   "dependencies": {
-    "axios": "^0.21.3"
+    "axios": "^0.21.3",
+    "querystring": "^0.2.1"
   }
 }

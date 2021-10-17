@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 18:24:58
- * @LastEditTime: 2021-10-10 15:40:57
+ * @LastEditTime: 2021-10-17 15:35:10
  */
 import { AxiosRequestConfig, AxiosInstance } from 'axios'
 import { BaseRequest } from '../types/base'
@@ -13,8 +13,11 @@ export default class Request {
         this.axios = axios
     }
 
-    public get<T> (url: string, config?: AxiosRequestConfig):Promise<BaseRequest.Response<T>> {
-        return this.axios.get(url, config)
+    public get<T> (url: string, data: any, config?: AxiosRequestConfig):Promise<BaseRequest.Response<T>> {
+        return this.axios.get(url, {
+            data,
+            ...config
+        })
     }
 
     public post<T> (url: string, data, config?: AxiosRequestConfig):Promise<BaseRequest.Response<T>> {
