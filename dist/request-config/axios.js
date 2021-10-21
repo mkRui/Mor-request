@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-10-21 17:14:07
+ * @LastEditTime: 2021-10-21 17:24:49
  */
 import axios from 'axios';
 import queryString from 'querystring';
@@ -25,10 +25,9 @@ const CreateAxios = (config) => {
     });
     // response 拦截器
     Axios.interceptors.response.use((response) => {
+        var _a;
         const res = response.data;
-        if (!res.data) {
-            res.data = {};
-        }
+        res.data = (_a = res.data) !== null && _a !== void 0 ? _a : {};
         if (res.data.code !== 0) {
             throw Promise.reject({
                 code: res.code,

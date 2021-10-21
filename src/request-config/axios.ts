@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-10-21 17:14:07
+ * @LastEditTime: 2021-10-21 17:24:49
  */
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 
@@ -37,9 +37,7 @@ const CreateAxios = (config?: AxiosRequestConfig): AxiosInstance => {
     Axios.interceptors.response.use((response: AxiosResponse) => {
         const res = response.data
     
-        if (!res.data) {
-            res.data = {}
-        }
+        res.data = res.data ?? {}
 
         if (res.data.code !== 0) {
             throw Promise.reject({
