@@ -35,7 +35,7 @@ const CreateAxios = (config?: AxiosRequestConfig): AxiosInstance => {
 
     // response 拦截器
     Axios.interceptors.response.use((response: AxiosResponse) => {
-        return response;
+        return response.data;
     }, (err: AxiosError) => {
         Promise.reject(err.response.status);
     });
