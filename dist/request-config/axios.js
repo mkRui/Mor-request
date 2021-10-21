@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-10-17 15:36:25
+ * @LastEditTime: 2021-10-21 17:14:07
  */
 import axios from 'axios';
 import queryString from 'querystring';
@@ -25,9 +25,27 @@ const CreateAxios = (config) => {
     });
     // response 拦截器
     Axios.interceptors.response.use((response) => {
-        return response.data;
+        const res = response.data;
+        if (!res.data) {
+            res.data = {};
+        }
+        if (res.data.code !== 0) {
+            throw Promise.reject({
+                code: res.code,
+                count: null,
+                data: null,
+                msg: res.msg,
+            });
+        }
+        return res;
     }, (err) => {
-        Promise.reject(err.response.status);
+        const standardRes = {
+            code: err.response.status,
+            count: null,
+            data: {},
+            msg: err.message,
+        };
+        Promise.reject(standardRes);
     });
     return Axios;
 };
