@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-10-17 15:36:25
+ * @LastEditTime: 2021-10-21 16:49:00
  */
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 
@@ -35,7 +35,11 @@ const CreateAxios = (config?: AxiosRequestConfig): AxiosInstance => {
 
     // response 拦截器
     Axios.interceptors.response.use((response: AxiosResponse) => {
-        return response.data;
+        const res = response.data
+        if (!res.data) {
+            res.data = {}
+        } 
+        return res;
     }, (err: AxiosError) => {
         Promise.reject(err.response.status);
     });
