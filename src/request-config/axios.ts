@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-10-21 17:24:49
+ * @LastEditTime: 2021-10-23 15:00:36
  */
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 
@@ -39,7 +39,7 @@ const CreateAxios = (config?: AxiosRequestConfig): AxiosInstance => {
     
         res.data = res.data ?? {}
 
-        if (res.data.code !== 0) {
+        if (res.code !== 0) {
             throw Promise.reject({
                 code: res.code,
                 count: null,
