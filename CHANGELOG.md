@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.16 (2021-10-23)
+
+
+### Features
+
+* 初始化 ([d4038aa](https://github.com/mkRui/Mor-request/commit/d4038aa1eee4f6c54790b49b964c24491a3f8d81))
+* 更新请求拦截器 ([47e7190](https://github.com/mkRui/Mor-request/commit/47e7190dec89c09d58952eed591ff7ea0801c22c))
+* 上传压缩文件 ([ab76304](https://github.com/mkRui/Mor-request/commit/ab763048ccddae6ba3139b0ff613bc36e7ac9eb1))
+* 添加方法 ([52b86d6](https://github.com/mkRui/Mor-request/commit/52b86d6a435448856218bab9d43b694e78a03817))
+* 添加提示 ([c64b1d1](https://github.com/mkRui/Mor-request/commit/c64b1d12edfff9d9e59bfeb565421c37195ff4bd))
+
+
+### Bug Fixes
+
+* 更新导入导出 ([09cc033](https://github.com/mkRui/Mor-request/commit/09cc033235b4a36c01547f199b5a54a5592318ce))
+* 添加打包 添加导出 ([8982caf](https://github.com/mkRui/Mor-request/commit/8982caf78bc7a68edd65079e78c74cf31a4b9ad2))
+* 添加提示类型 ([82227c1](https://github.com/mkRui/Mor-request/commit/82227c1e9e0832194787bc34ba0eac6c4b02d33b))
+* 修改更稳妥的写法 ([e19282f](https://github.com/mkRui/Mor-request/commit/e19282f969f8fff7ee8c9619037763d905eeceae))
+* 修改拦截器失败问题 ([c15fb30](https://github.com/mkRui/Mor-request/commit/c15fb30a71eb8d34b6de8415f34dc6a548c41c93))
+* 修改类型错误 ([6470469](https://github.com/mkRui/Mor-request/commit/6470469937f96ec8a4f611dab35f84a199ff10e8))
+* 修改引用方式 ([fd5947b](https://github.com/mkRui/Mor-request/commit/fd5947b63be79eab05bad91fd0d8cda31f2eb0d8))
+* 修改引用类型错误 ([5f72181](https://github.com/mkRui/Mor-request/commit/5f72181664a2759d9f81c3f3a533ffc0f9d1d4b3))
+* 修改gat请求参数 ([2f7165e](https://github.com/mkRui/Mor-request/commit/2f7165e0916e96b0c73edf89df486182f4248c7c))
+* 优化拦截器 ([d01c149](https://github.com/mkRui/Mor-request/commit/d01c1490f2de12fbca523464e673f75968b8cd3c))
+* fix: 更新拦截器 ([96819b1](https://github.com/mkRui/Mor-request/commit/96819b18e0445d15d9a7dc052305cfcf9e42f4af))
+
 ### 1.0.15 (2021-10-23)
 
 
