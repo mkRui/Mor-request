@@ -9,13 +9,13 @@ export declare namespace BaseRequest {
     type Code = 0 | 1 | 2;
     interface Success<T> {
         code: 0;
-        count?: number;
+        count: number;
         msg: string;
         data: T;
     }
     interface Error<T> {
         code: Code;
-        count?: number;
+        count: number;
         msg: string;
         data: T;
     }
