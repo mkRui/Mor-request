@@ -1,11 +1,16 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-10-23 15:00:36
+ * @LastEditTime: 2021-11-10 22:31:30
  */
 import axios from 'axios';
 import queryString from 'querystring';
-const CreateAxios = (config) => {
+export var Type;
+(function (Type) {
+    Type["SUCCESS"] = "success";
+    Type["ERROR"] = "error";
+})(Type || (Type = {}));
+const CreateAxios = (config, callBack) => {
     const Axios = axios.create(Object.assign({ timeout: 5000 }, config));
     // request 拦截器
     Axios.interceptors.request.use((config) => {
@@ -26,17 +31,21 @@ const CreateAxios = (config) => {
     // response 拦截器
     Axios.interceptors.response.use((response) => {
         var _a;
-        const res = response.data;
+        let res = response.data;
         res.data = (_a = res.data) !== null && _a !== void 0 ? _a : {};
         if (res.code !== 0) {
-            throw Promise.reject({
+            callBack && callBack({
+                type: Type.ERROR,
+                msg: res.msg
+            });
+            res = {
                 code: res.code,
                 count: null,
                 data: null,
                 msg: res.msg,
-            });
+            };
         }
-        return res;
+        return Promise.resolve(res);
     }, (err) => {
         const standardRes = {
             code: err.response.status,
@@ -44,7 +53,11 @@ const CreateAxios = (config) => {
             data: {},
             msg: err.message,
         };
-        Promise.reject(standardRes);
+        callBack && callBack({
+            type: Type.ERROR,
+            msg: err.message
+        });
+        return Promise.resolve(standardRes);
     });
     return Axios;
 };
