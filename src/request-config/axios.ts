@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-11-10 22:31:30
+ * @LastEditTime: 2021-11-11 22:59:14
  */
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 
@@ -26,7 +26,9 @@ const CreateAxios = (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg:
             config.method === 'delete' ||
             config.method === 'patch'
         ) {
-            config.data = queryString.stringify(config.data);
+            if (!config.headers.requestPayload) {
+                config.data = queryString.stringify(config.data);
+            }
         }
         if (window.localStorage.getItem('token')) {
             config.headers['token'] = window.localStorage.getItem('token');
