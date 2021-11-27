@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-11-11 22:59:14
+ * @LastEditTime: 2021-11-27 19:11:14
  */
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError, AxiosInstance } from 'axios';
 
@@ -12,7 +12,7 @@ export enum Type {
     ERROR = 'error',
 }
 
-const CreateAxios = (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg: string  }) => any): AxiosInstance => {
+const CreateAxios = (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg: string, code: number }) => any): AxiosInstance => {
 
     const Axios = axios.create({
         timeout: 5000,
@@ -49,7 +49,8 @@ const CreateAxios = (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg:
         if (res.code !== 0) {
             callBack && callBack({
                 type: Type.ERROR,
-                msg: res.msg
+                msg: res.msg,
+                code: res.code
             })
             res =  {
                 code: res.code,
@@ -69,7 +70,8 @@ const CreateAxios = (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg:
         }
         callBack && callBack({
             type: Type.ERROR,
-            msg: err.message
+            msg: err.message,
+            code: err.response.status
         })
         return  Promise.resolve(standardRes);
     });
