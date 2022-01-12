@@ -63,7 +63,7 @@ const CreateAxios = (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg:
         return Promise.resolve(res);
     }, (err: AxiosError) => {
         const standardRes = {
-            code: err.response.status,
+            code: err.response?.status,
             count: null,
             data: {},
             msg: err.message,
@@ -71,7 +71,7 @@ const CreateAxios = (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg:
         callBack && callBack({
             type: Type.ERROR,
             msg: err.message,
-            code: err.response.status
+            code: err.response?.status
         })
         return  Promise.resolve(standardRes);
     });
