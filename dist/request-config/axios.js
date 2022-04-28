@@ -1,7 +1,7 @@
 /*
  * @Author: mkRui
  * @Date: 2021-09-07 11:26:55
- * @LastEditTime: 2021-11-11 22:59:14
+ * @LastEditTime: 2021-11-27 19:11:14
  */
 import axios from 'axios';
 import queryString from 'querystring';
@@ -34,11 +34,12 @@ const CreateAxios = (config, callBack) => {
     Axios.interceptors.response.use((response) => {
         var _a;
         let res = response.data;
-        res.data = (_a = res.data) !== null && _a !== void 0 ? _a : {};
+        res.data = (_a = res.data) !== null && _a !== void 0 ? _a : '';
         if (res.code !== 0) {
             callBack && callBack({
                 type: Type.ERROR,
-                msg: res.msg
+                msg: res.msg,
+                code: res.code
             });
             res = {
                 code: res.code,
@@ -49,15 +50,17 @@ const CreateAxios = (config, callBack) => {
         }
         return Promise.resolve(res);
     }, (err) => {
+        var _a, _b;
         const standardRes = {
-            code: err.response.status,
+            code: (_a = err.response) === null || _a === void 0 ? void 0 : _a.status,
             count: null,
             data: {},
             msg: err.message,
         };
         callBack && callBack({
             type: Type.ERROR,
-            msg: err.message
+            msg: err.message,
+            code: (_b = err.response) === null || _b === void 0 ? void 0 : _b.status
         });
         return Promise.resolve(standardRes);
     });
