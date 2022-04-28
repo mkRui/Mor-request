@@ -39,5 +39,8 @@
   "dependencies": {
     "axios": "^0.21.3",
     "querystring": "^0.2.1"
+  },
+  "devDependencies": {
+    "commitizen": "^4.2.4"
   }
 }

@@ -44,7 +44,7 @@ const CreateAxios = (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg:
     Axios.interceptors.response.use((response: AxiosResponse) => {
         let res = response.data
     
-        res.data = res.data ?? {}
+        res.data = res.data ?? ''
 
         if (res.code !== 0) {
             callBack && callBack({
