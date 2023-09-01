@@ -1,4 +1,4 @@
-import { AxiosRequestConfig, AxiosInstance } from 'axios';
+import { AxiosRequestConfig, AxiosInstance } from "axios";
 export declare enum Type {
     SUCCESS = "success",
     ERROR = "error"
