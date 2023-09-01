@@ -17,9 +17,16 @@ export enum Type {
   ERROR = "error",
 }
 
+export interface ConfigTypes {
+  type: Type;
+  msg: string;
+  code: number;
+}
+
 const CreateAxios = (
   config?: AxiosRequestConfig,
-  callBack?: ({ type: Type, msg: string, code: number }) => any
+  reqCallBack?: (config: AxiosRequestConfig) => AxiosRequestConfig,
+  resCallBack?: ({ type, msg, code }: ConfigTypes) => any
 ): AxiosInstance => {
   const Axios = axios.create({
     timeout: 5000,
@@ -42,7 +49,7 @@ const CreateAxios = (
         }
       }
 
-      Object.assign(c, config, rConfig)
+      Object.assign(c, rConfig, reqCallBack?.(rConfig) || {});
 
       return c;
     },
@@ -60,18 +67,19 @@ const CreateAxios = (
       res.data = res.data ?? "";
 
       if (res.code !== 0) {
-        callBack &&
-          callBack({
+        if (resCallBack) {
+          resCallBack({
             type: Type.ERROR,
             msg: res.msg,
             code: res.code,
           });
-        res = {
+        }
+        Object.assign(res, {
           code: res.code,
           count: null,
           data: null,
           msg: res.msg,
-        };
+        });
       }
 
       return Promise.resolve(res);
@@ -80,15 +88,16 @@ const CreateAxios = (
       const standardRes = {
         code: err.response?.status,
         count: null,
-        data: {},
+        data: null,
         msg: err.message,
       };
-      callBack &&
-        callBack({
+      if (resCallBack) {
+        resCallBack({
           type: Type.ERROR,
           msg: err.message,
-          code: err.response?.status,
+          code: err.response?.status || -1,
         });
+      }
       return Promise.resolve(standardRes);
     }
   );

@@ -10,7 +10,7 @@ export var Type;
     Type["SUCCESS"] = "success";
     Type["ERROR"] = "error";
 })(Type || (Type = {}));
-const CreateAxios = (config, callBack) => {
+const CreateAxios = (config, reqCallBack, resCallBack) => {
     const Axios = axios.create(Object.assign({ timeout: 5000 }, config));
     // request 拦截器
     Axios.interceptors.request.use((rConfig) => {
@@ -23,7 +23,7 @@ const CreateAxios = (config, callBack) => {
                 rConfig.data = queryString.stringify(rConfig.data);
             }
         }
-        Object.assign(c, config, rConfig);
+        Object.assign(c, rConfig, (reqCallBack === null || reqCallBack === void 0 ? void 0 : reqCallBack(rConfig)) || {});
         return c;
     }, (err) => {
         console.log(err);
@@ -35,18 +35,19 @@ const CreateAxios = (config, callBack) => {
         let res = response.data;
         res.data = (_a = res.data) !== null && _a !== void 0 ? _a : "";
         if (res.code !== 0) {
-            callBack &&
-                callBack({
+            if (resCallBack) {
+                resCallBack({
                     type: Type.ERROR,
                     msg: res.msg,
                     code: res.code,
                 });
-            res = {
+            }
+            Object.assign(res, {
                 code: res.code,
                 count: null,
                 data: null,
                 msg: res.msg,
-            };
+            });
         }
         return Promise.resolve(res);
     }, (err) => {
@@ -54,15 +55,16 @@ const CreateAxios = (config, callBack) => {
         const standardRes = {
             code: (_a = err.response) === null || _a === void 0 ? void 0 : _a.status,
             count: null,
-            data: {},
+            data: null,
             msg: err.message,
         };
-        callBack &&
-            callBack({
+        if (resCallBack) {
+            resCallBack({
                 type: Type.ERROR,
                 msg: err.message,
-                code: (_b = err.response) === null || _b === void 0 ? void 0 : _b.status,
+                code: ((_b = err.response) === null || _b === void 0 ? void 0 : _b.status) || -1,
             });
+        }
         return Promise.resolve(standardRes);
     });
     return Axios;

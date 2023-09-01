@@ -3,9 +3,10 @@ export declare enum Type {
     SUCCESS = "success",
     ERROR = "error"
 }
-declare const CreateAxios: (config?: AxiosRequestConfig, callBack?: ({ type: Type, msg: string, code: number }: {
-    type: any;
-    msg: any;
-    code: any;
-}) => any) => AxiosInstance;
+export interface ConfigTypes {
+    type: Type;
+    msg: string;
+    code: number;
+}
+declare const CreateAxios: (config?: AxiosRequestConfig, reqCallBack?: (config: AxiosRequestConfig) => AxiosRequestConfig, resCallBack?: ({ type, msg, code }: ConfigTypes) => any) => AxiosInstance;
 export default CreateAxios;
