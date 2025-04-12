@@ -14,17 +14,22 @@ const CreateAxios = (config, reqCallBack, resCallBack) => {
     const Axios = axios.create(Object.assign({ timeout: 5000 }, config));
     // request 拦截器
     Axios.interceptors.request.use((rConfig) => {
-        const c = {};
+        var _a;
         if (rConfig.method === "post" ||
             rConfig.method === "put" ||
             rConfig.method === "delete" ||
             rConfig.method === "patch") {
-            if (!rConfig.headers.requestPayload) {
+            if (!((_a = rConfig.headers) === null || _a === void 0 ? void 0 : _a.requestPayload)) {
                 rConfig.data = queryString.stringify(rConfig.data);
             }
         }
-        Object.assign(c, rConfig, (reqCallBack === null || reqCallBack === void 0 ? void 0 : reqCallBack(rConfig)) || {});
-        return c;
+        // 调用 reqCallBack 并将其结果合并到 rConfig
+        const modifiedConfig = reqCallBack === null || reqCallBack === void 0 ? void 0 : reqCallBack(rConfig);
+        if (modifiedConfig) {
+            Object.assign(rConfig, modifiedConfig);
+        }
+        // 返回 rConfig，确保类型正确
+        return rConfig;
     }, (err) => {
         console.log(err);
         return Promise.reject(err);
