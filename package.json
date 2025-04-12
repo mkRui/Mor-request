@@ -1,6 +1,6 @@
 {
   "name": "mor-request",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "基于Axios请求库",
   "main": "dist/index.js",
   "files": [
@@ -38,7 +38,8 @@
   "homepage": "https://github.com/mkRui/Mor-request#readme",
   "dependencies": {
     "axios": "^1.8.4",
-    "querystring": "^0.2.1"
+    "querystring": "^0.2.1",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "commitizen": "^4.2.4",
