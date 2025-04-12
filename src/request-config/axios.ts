@@ -8,6 +8,7 @@ import axios, {
   AxiosResponse,
   AxiosError,
   AxiosInstance,
+  InternalAxiosRequestConfig,
 } from "axios";
 
 import queryString from "querystring";
@@ -36,22 +37,24 @@ const CreateAxios = (
   // request 拦截器
   Axios.interceptors.request.use(
     (rConfig: AxiosRequestConfig) => {
-      const c = {};
-
       if (
         rConfig.method === "post" ||
         rConfig.method === "put" ||
         rConfig.method === "delete" ||
         rConfig.method === "patch"
       ) {
-        if (!rConfig.headers.requestPayload) {
+        if (!rConfig.headers?.requestPayload) {
           rConfig.data = queryString.stringify(rConfig.data);
         }
       }
+      // 调用 reqCallBack 并将其结果合并到 rConfig
+      const modifiedConfig = reqCallBack?.(rConfig);
+      if (modifiedConfig) {
+        Object.assign(rConfig, modifiedConfig);
+      }
 
-      Object.assign(c, rConfig, reqCallBack?.(rConfig) || {});
-
-      return c;
+      // 返回 rConfig，确保类型正确
+      return rConfig as InternalAxiosRequestConfig;
     },
     (err) => {
       console.log(err);

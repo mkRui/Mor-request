@@ -5,6 +5,7 @@
  */
 import { AxiosRequestConfig, AxiosInstance } from "axios";
 import { BaseRequest } from "../types/base";
+import { toCallback } from "../utils";
 
 export default class Request {
   public axios: AxiosInstance;
