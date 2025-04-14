@@ -5,7 +5,7 @@
  */
 import { AxiosRequestConfig, AxiosInstance } from "axios";
 import { BaseRequest } from "../types/base";
-import { toCallback } from "../utils";
+import { toCallback, to } from "../utils";
 
 export default class Request {
   public axios: AxiosInstance;
@@ -18,18 +18,20 @@ export default class Request {
     url: string,
     data?: any,
     config?: AxiosRequestConfig
-  ): Promise<BaseRequest.Response<T>> {
-    return this.axios.get(url, {
-      ...config,
-      params: data,
-    });
+  ): Promise<[any, undefined] | [null, T]> {
+    return to(
+      this.axios.get(url, {
+        ...config,
+        params: data,
+      })
+    );
   }
 
   public post<T>(
     url: string,
     data: any,
     config?: AxiosRequestConfig
-  ): Promise<BaseRequest.Response<T>> {
-    return this.axios.post(url, data, config);
+  ): Promise<[any, undefined] | [null, T]> {
+    return to(this.axios.post(url, data, config));
   }
 }
