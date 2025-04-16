@@ -21,18 +21,18 @@ export function to(promise, errorExt) {
 export function isPromise(val) {
     return Object(val).constructor === Promise;
 }
-export function toCallback(promise, success, errorFn) {
+export function toCallback(promise) {
     return __awaiter(this, void 0, void 0, function* () {
-        const [err, data] = yield to(promise);
-        (data === null || data === void 0 ? void 0 : data.code) === 0 && (success === null || success === void 0 ? void 0 : success(data));
-        if ((data === null || data === void 0 ? void 0 : data.code) !== 0 || err) {
+        const [err, res] = yield to(promise);
+        if ((res === null || res === void 0 ? void 0 : res.code) === 0)
+            return [null, res.data];
+        if ((res === null || res === void 0 ? void 0 : res.code) !== 0 || err) {
             if (isPromise(err)) {
-                err.catch((e) => {
-                    errorFn === null || errorFn === void 0 ? void 0 : errorFn(e);
-                });
-                return false;
+                const e = yield err.catch((e) => e);
+                return [e, null];
             }
-            errorFn === null || errorFn === void 0 ? void 0 : errorFn(data || err);
+            return [res || err, null];
         }
+        return [err, res.data];
     });
 }
