@@ -11,7 +11,7 @@ class EventDispatch {
   public emit(...args: any): boolean | undefined {
     const argu = args;
     const event = [].shift.call(args) ?? "";
-    const fns = [...this.list[event]];
+    const fns = [...(this.list[event] || [])];
     if (!fns.length) {
       return false;
     }

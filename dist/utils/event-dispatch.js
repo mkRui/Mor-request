@@ -9,7 +9,7 @@ class EventDispatch {
         var _a;
         const argu = args;
         const event = (_a = [].shift.call(args)) !== null && _a !== void 0 ? _a : "";
-        const fns = [...this.list[event]];
+        const fns = [...(this.list[event] || [])];
         if (!fns.length) {
             return false;
         }
