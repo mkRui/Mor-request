@@ -18,8 +18,8 @@ export default class Request {
     url: string,
     data?: any,
     config?: AxiosRequestConfig
-  ): Promise<[any, undefined] | [null, T]> {
-    return to(
+  ): Promise<BaseRequest.Response<T>> {
+    return toCallback(
       this.axios.get(url, {
         ...config,
         params: data,
@@ -31,7 +31,7 @@ export default class Request {
     url: string,
     data: any,
     config?: AxiosRequestConfig
-  ): Promise<[any, undefined] | [null, T]> {
-    return to(this.axios.post(url, data, config));
+  ): Promise<BaseRequest.Response<T>> {
+    return toCallback(this.axios.post(url, data, config));
   }
 }

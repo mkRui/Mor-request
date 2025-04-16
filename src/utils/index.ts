@@ -1,9 +1,4 @@
-interface PromiseData {
-  code: number;
-  count: number;
-  msg: string;
-  data: any;
-}
+import { BaseRequest } from "../types/base";
 
 export function to<T, U = Error>(
   promise: Promise<T>,
@@ -22,21 +17,19 @@ export function to<T, U = Error>(
 export function isPromise(val: any) {
   return Object(val).constructor === Promise;
 }
-export async function toCallback(
-  promise: Promise<any>,
-  success: (arg0: PromiseData | undefined) => void,
-  errorFn?: (arg0: Error | PromiseData | null | undefined | any) => void
-) {
-  const [err, data] = await to<PromiseData>(promise);
-  data?.code === 0 && success?.(data);
+export async function toCallback<T>(
+  promise: Promise<any>
+): Promise<BaseRequest.Response<T>> {
+  const [err, res] = await to<BaseRequest.Success<T>>(promise);
+  if (res?.code === 0) return [null, res.data];
 
-  if (data?.code !== 0 || err) {
+  if (res?.code !== 0 || err) {
     if (isPromise(err)) {
-      err.catch((e: any) => {
-        errorFn?.(e);
-      });
-      return false;
+      const e = await err.catch((e: any) => e);
+      return [e, null];
     }
-    errorFn?.(data || err);
+    return [res || err, null];
   }
+
+  return [err, res.data];
 }
