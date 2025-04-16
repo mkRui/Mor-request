@@ -5,7 +5,8 @@
  */
 import { AxiosRequestConfig, AxiosInstance } from "axios";
 import { BaseRequest } from "../types/base";
-import { toCallback, to } from "../utils";
+import { toCallback } from "../utils/request-fn";
+import { EventDispatch } from "../utils";
 
 export default class Request {
   public axios: AxiosInstance;
@@ -19,11 +20,16 @@ export default class Request {
     data?: any,
     config?: AxiosRequestConfig
   ): Promise<BaseRequest.Response<T>> {
+    EventDispatch.emit("request", {
+      url,
+      data,
+    });
     return toCallback(
       this.axios.get(url, {
         ...config,
         params: data,
-      })
+      }),
+      url
     );
   }
 
@@ -32,6 +38,10 @@ export default class Request {
     data: any,
     config?: AxiosRequestConfig
   ): Promise<BaseRequest.Response<T>> {
-    return toCallback(this.axios.post(url, data, config));
+    EventDispatch.emit("request", {
+      url,
+      data,
+    });
+    return toCallback(this.axios.post(url, data, config), url);
   }
 }
