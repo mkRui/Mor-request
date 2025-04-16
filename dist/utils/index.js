@@ -1,38 +1,4 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-export function to(promise, errorExt) {
-    return promise
-        .then((data) => [null, data])
-        .catch((err) => {
-        if (errorExt) {
-            const parsedError = Object.assign(Object.assign({}, err), errorExt);
-            return [parsedError, undefined];
-        }
-        return [err, undefined];
-    });
-}
-export function isPromise(val) {
-    return Object(val).constructor === Promise;
-}
-export function toCallback(promise) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const [err, res] = yield to(promise);
-        if ((res === null || res === void 0 ? void 0 : res.code) === 0)
-            return [null, res.data];
-        if ((res === null || res === void 0 ? void 0 : res.code) !== 0 || err) {
-            if (isPromise(err)) {
-                const e = yield err.catch((e) => e);
-                return [e, null];
-            }
-            return [res || err, null];
-        }
-        return [err, res.data];
-    });
-}
+import eventDispatch from "./event-dispatch";
+export { to, toCallback } from "./request-fn";
+const EventDispatch = new eventDispatch();
+export { EventDispatch };
