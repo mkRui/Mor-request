@@ -3,3 +3,4 @@ import Request from "./request-config/request";
 import Store from "./request-config/store";
 export * from "./utils";
 export { Request, Store, CreateAxios };
+//# sourceMappingURL=index.js.map
